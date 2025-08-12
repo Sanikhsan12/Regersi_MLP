@@ -1,0 +1,4 @@
+.venv/
+.vscode/
+data_final.csv
+data_sebelum_sorting.csv
