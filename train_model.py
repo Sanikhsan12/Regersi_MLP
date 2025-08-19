@@ -46,6 +46,9 @@ history = model.fit(x_scaled, y_scaled, epochs=300, batch_size=16, validation_sp
 # * Evaluasi Dan Prediksi
 r_squared_history = history.history['r2_score']
 
+# * Simpan model ke file untuk digunakan Flask app
+model.save('mlp_model.h5')
+
 # * Plotting R-squared dan Epoch
 plt.figure(figsize=(10, 6))
 plt.plot(range(1, len(r_squared_history) + 1), r_squared_history)
