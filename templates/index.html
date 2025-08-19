@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chatbot Prediksi Harga Rumah</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+      }
+      .container {
+        max-width: 500px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        text-align: center;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      label {
+        font-weight: bold;
+      }
+      input,
+      select {
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      button {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+      .result {
+        margin-top: 20px;
+        font-size: 1.2em;
+        text-align: center;
+        color: #2d572c;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Chatbot Prediksi Harga Rumah</h2>
+      <form method="POST" action="/predict">
+        <label
+          >Luas Tanah (m²): <input type="number" name="luas_tanah_m2" required
+        /></label>
+        <label
+          >Luas Bangunan (m²):
+          <input type="number" name="luas_bangunan_m2" required
+        /></label>
+        <label
+          >Jumlah Lantai:
+          <input type="number" name="jumlah_lantai" min="1" required
+        /></label>
+        <label
+          >Jumlah Kamar Tidur:
+          <input type="number" name="jumlah_kamar_tidur" min="1" required
+        /></label>
+        <label
+          >Jumlah Kamar Mandi:
+          <input type="number" name="jumlah_kamar_mandi" min="1" required
+        /></label>
+        <label
+          >Luas Basement (m²):
+          <input type="number" name="luas_basement_m2" value="0" required
+        /></label>
+        <label
+          >Kualitas Pemandangan:
+          <select name="kualitas_pemandangan">
+            <option value="1">Biasa</option>
+            <option value="2">Bagus</option>
+            <option value="3">Sangat Bagus</option>
+            <option value="4">Premium</option>
+          </select>
+        </label>
+        <label
+          >Pemandangan Air:
+          <select name="pemandangan_air">
+            <option value="0">Tidak</option>
+            <option value="1">Ya</option>
+          </select>
+        </label>
+        <label
+          >Usia Rumah (tahun):
+          <input type="number" name="usia_rumah" min="0" required
+        /></label>
+        <label
+          >Direnovasi:
+          <select name="direnovasi">
+            <option value="0">Tidak</option>
+            <option value="1">Ya</option>
+          </select>
+        </label>
+        <button type="submit">Prediksi Harga</button>
+      </form>
+      {% if prediction_text %}
+      <div class="result">{{ prediction_text }}</div>
+      {% endif %}
+    </div>
+  </body>
+</html>
