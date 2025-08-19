@@ -3,9 +3,10 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
+import joblib
 
 # * Membaca File CSV
-data = pd.read_csv('data_final.csv')
+data = pd.read_csv('data_final_cleaned.csv')
 
 # * Inisialisasai target dan fitur
 fitur_input = ['luas_tanah_m2', 'luas_bangunan_m2', 'jumlah_lantai', 'jumlah_kamar_tidur', 'jumlah_kamar_mandi','luas_basement_m2','kualitas_pemandangan','pemandangan_air','usia_rumah','direnovasi']
@@ -24,9 +25,9 @@ y_scaled = y_scaler.fit_transform(y)
 fungsi_aktivasi = 'leaky_relu'
 model = tf.keras.Sequential([
     tf.keras.layers.Input(shape=(len(fitur_input),), name='input_layer'),
-    tf.keras.layers.Dense(units=64, activation=fungsi_aktivasi, name='hidden_layer_1'),
-    tf.keras.layers.Dense(units=32, activation=fungsi_aktivasi, name='hidden_layer_2'),
-    tf.keras.layers.Dense(units=16, activation=fungsi_aktivasi, name='hidden_layer_3'),
+    tf.keras.layers.Dense(units=128, activation=fungsi_aktivasi, name='hidden_layer_1'),
+    tf.keras.layers.Dense(units=64, activation=fungsi_aktivasi, name='hidden_layer_2'),
+    tf.keras.layers.Dense(units=32, activation=fungsi_aktivasi, name='hidden_layer_3'),
     tf.keras.layers.Dense(units=1, name='output_layer')
 ])
 
@@ -41,13 +42,17 @@ model.compile(
 )
 
 # * Train Model
-history = model.fit(x_scaled, y_scaled, epochs=300, batch_size=16, validation_split=0.2, verbose=1)
+history = model.fit(x_scaled, y_scaled, epochs=2000, batch_size=32, validation_split=0.3, verbose=1)
 
 # * Evaluasi Dan Prediksi
 r_squared_history = history.history['r2_score']
 
+# * Menyimpan Scaller
+joblib.dump(x_scaler, 'x_scaler.pkl')
+joblib.dump(y_scaler, 'y_scaler.pkl')
+
 # * Simpan model ke file untuk digunakan Flask app
-model.save('mlp_model.h5')
+model.save('mlp_model_v2.h5')
 
 # * Plotting R-squared dan Epoch
 plt.figure(figsize=(10, 6))
