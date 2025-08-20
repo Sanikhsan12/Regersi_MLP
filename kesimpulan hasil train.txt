@@ -1,0 +1,12 @@
+model 1 (base model non regularisasi):
+full epoch 2000
+r2score di 0.91
+overfit di 0.39
+hasil harga prediksi 14,2 M
+
+model 2 (dengan regularisasi: 
+stop epoch di 270
+r2score di 0.61
+overfitt di 0.28 sampai 0.35
+hasil harga prediksi 13,2 M 
+
