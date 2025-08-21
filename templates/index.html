@@ -3,7 +3,238 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Regresi MLP</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
   </head>
-  <body></body>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+      <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">
+        Prediksi Harga Rumah
+      </h1>
+      <form id="predictionForm" class="space-y-4">
+        <div>
+          <label
+            for="luas_tanah_m2"
+            class="block text-sm font-medium text-gray-700"
+            >Luas Tanah (m²):</label
+          >
+          <input
+            type="number"
+            id="luas_tanah_m2"
+            step="any"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+            required
+          />
+        </div>
+        <div>
+          <label
+            for="luas_bangunan_m2"
+            class="block text-sm font-medium text-gray-700"
+            >Luas Bangunan (m²):</label
+          >
+          <input
+            type="number"
+            id="luas_bangunan_m2"
+            step="any"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+            required
+          />
+        </div>
+        <div>
+          <label
+            for="jumlah_lantai"
+            class="block text-sm font-medium text-gray-700"
+            >Jumlah Lantai:</label
+          >
+          <input
+            type="number"
+            id="jumlah_lantai"
+            step="any"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+            required
+          />
+        </div>
+        <div>
+          <label
+            for="jumlah_kamar_tidur"
+            class="block text-sm font-medium text-gray-700"
+            >Jumlah Kamar Tidur:</label
+          >
+          <input
+            type="number"
+            id="jumlah_kamar_tidur"
+            step="any"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+            required
+          />
+        </div>
+        <div>
+          <label
+            for="jumlah_kamar_mandi"
+            class="block text-sm font-medium text-gray-700"
+            >Jumlah Kamar Mandi:</label
+          >
+          <input
+            type="number"
+            id="jumlah_kamar_mandi"
+            step="any"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+            required
+          />
+        </div>
+        <div>
+          <label
+            for="luas_basement_m2"
+            class="block text-sm font-medium text-gray-700"
+            >Luas Basement (m²):</label
+          >
+          <input
+            type="number"
+            id="luas_basement_m2"
+            step="any"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+            required
+          />
+        </div>
+        <div>
+          <label
+            for="kualitas_pemandangan"
+            class="block text-sm font-medium text-gray-700"
+            >Kualitas Pemandangan:</label
+          >
+          <select
+            id="kualitas_pemandangan"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+            required
+          >
+            <option value="1">1 - Sangat Buruk</option>
+            <option value="2">2 - Buruk</option>
+            <option value="3">3 - Cukup</option>
+            <option value="4">4 - Baik</option>
+            <option value="5">5 - Sangat Baik</option>
+          </select>
+        </div>
+        <div>
+          <label
+            for="pemandangan_air"
+            class="block text-sm font-medium text-gray-700"
+            >Pemandangan Air:</label
+          >
+          <select
+            id="pemandangan_air"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+            required
+          >
+            <option value="0">Tidak Dekat Dengan Sungai / Danau</option>
+            <option value="1">Dekat Dengan Sungai / Danau</option>
+          </select>
+        </div>
+        <div>
+          <label
+            for="usia_rumah"
+            class="block text-sm font-medium text-gray-700"
+            >Usia Rumah (tahun):</label
+          >
+          <input
+            type="number"
+            id="usia_rumah"
+            step="any"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+            required
+          />
+        </div>
+        <div>
+          <label
+            for="direnovasi"
+            class="block text-sm font-medium text-gray-700"
+            >Status Direnovasi:</label
+          >
+          <select
+            id="direnovasi"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+            required
+          >
+            <option value="0">Belum Direnovasi</option>
+            <option value="1">Sudah Pernah Direnovasi</option>
+          </select>
+        </div>
+        <button
+          type="submit"
+          class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Prediksi
+        </button>
+      </form>
+      <div
+        id="result"
+        class="mt-6 text-center text-lg font-semibold text-gray-900 hidden"
+      >
+        <p>
+          Hasil Prediksi:
+          <span id="predictionResult" class="text-indigo-600"></span>
+        </p>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("predictionForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const inputData = {
+            luas_tanah_m2: parseFloat(
+              document.getElementById("luas_tanah_m2").value
+            ),
+            luas_bangunan_m2: parseFloat(
+              document.getElementById("luas_bangunan_m2").value
+            ),
+            jumlah_lantai: parseFloat(
+              document.getElementById("jumlah_lantai").value
+            ),
+            jumlah_kamar_tidur: parseFloat(
+              document.getElementById("jumlah_kamar_tidur").value
+            ),
+            jumlah_kamar_mandi: parseFloat(
+              document.getElementById("jumlah_kamar_mandi").value
+            ),
+            luas_basement_m2: parseFloat(
+              document.getElementById("luas_basement_m2").value
+            ),
+            kualitas_pemandangan: parseFloat(
+              document.getElementById("kualitas_pemandangan").value
+            ),
+            pemandangan_air: parseFloat(
+              document.getElementById("pemandangan_air").value
+            ),
+            usia_rumah: parseFloat(document.getElementById("usia_rumah").value),
+            direnovasi: parseFloat(document.getElementById("direnovasi").value),
+          };
+
+          const response = await fetch("/predict", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(inputData),
+          });
+
+          const data = await response.json();
+          const resultDiv = document.getElementById("result");
+          const predictionResultSpan =
+            document.getElementById("predictionResult");
+
+          if (data.prediction !== undefined) {
+            const formattedPrediction = data.prediction
+              .toFixed(2)
+              .replace(/\d(?=(\d{3})+\.)/g, "$&,");
+            predictionResultSpan.textContent = "Rp " + formattedPrediction;
+            resultDiv.classList.remove("hidden");
+          } else if (data.error) {
+            predictionResultSpan.textContent = "Error: " + data.error;
+            resultDiv.classList.remove("hidden");
+          }
+        });
+    </script>
+  </body>
 </html>
