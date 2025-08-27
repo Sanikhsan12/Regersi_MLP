@@ -8,7 +8,7 @@
 
 ## Library
 
-- Flask
+- Streamlit
 - scikit-learn
 - tensorflow
 - numpy
