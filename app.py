@@ -65,7 +65,7 @@ with col_model:
     x_scaler = load_scaler("x_scaler.pkl")
     y_scaler = load_scaler("y_scaler.pkl")
 
-st.subheader("Input Fitur")
+st.subheader("Input Spesifikasi Rumah")
 with st.form("form_fitur", clear_on_submit=False, border=True):
     c1, c2, c3 = st.columns(3)
     with c1:
@@ -91,6 +91,7 @@ with st.form("form_fitur", clear_on_submit=False, border=True):
             "Kualitas pemandangan",
             options=[1, 2, 3, 4, 5],
             index=2,
+            format_func=lambda x: {1: "Sangat Buruk", 2: "Buruk", 3: "Cukup", 4: "Baik", 5: "Sangat Baik"}[x],
             horizontal=True,
         )
 
